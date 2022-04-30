@@ -4,6 +4,18 @@ import argparse
 import requests
 import re
 
+    
+def run():
+  # Arguements: user will need to enter an API Key and File Hash
+  parser = argparse.ArgumentParser("Enter in the MD5 or SHA256 hash of the file for Virus Total to scan")
+  parser.add_argument('-H','--file_hash', type=verify_hash, required=True, help='Enter the MD5 or SHA256 hash of the file for Virus Total to scan')
+  parser.add_argument('-A','--api_key', required=True, help='Enter your API Key for Virus Total')
+  args = parser.parse_args()
+
+  # Only fetch results if the user entered an api key and valid hash
+  if args.file_hash and args.api_key:
+    fetch_results(args.api_key,args.file_hash)
+
 def verify_hash(file_hash):
 
   # Check for SHA256 Hash
@@ -14,18 +26,7 @@ def verify_hash(file_hash):
     return file_hash
   # Bad Hash
   else:
-    print("You have entered in an invalid hash.  Please enter an MD5 or SHA256 hash and try again.")
-    
-def run():
-  # Arguements: will need to enter an API Key and File Hash
-  parser = argparse.ArgumentParser("Enter in the MD5 or SHA256 hash of the file for Virus Total to scan")
-  parser.add_argument('-H','--file_hash', type=verify_hash, required=True, help='Enter the MD5 or SHA256 hash of the file for Virus Total to scan')
-  parser.add_argument('-A','--api_key', required=True, help='Enter your API Key for Virus Total')
-  args = parser.parse_args()
-
-  # Only fetch results if the user entered an api key and valid hash
-  if args.file_hash and args.api_key:
-    fetch_results(args.api_key,args.file_hash)
+    print("You have entered an invalid hash.  Please enter an MD5 or SHA256 hash and try again.")
 
 def fetch_results(api_key, file_hash):
   params = {'apikey': api_key, 'resource': file_hash}
@@ -53,7 +54,7 @@ def fetch_results(api_key, file_hash):
       else:
         print('This File is clean.')
 
-  # If status code is not 200, end and inform client of failure     
+  # If status code is not 200, end and inform user of failure     
   else:
     print('[-] The API call has failed.  Please verify your API key and try again.')
 

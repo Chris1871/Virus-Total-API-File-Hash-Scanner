@@ -1,4 +1,4 @@
-VT-File requires two arguements:
+Virus_Total_File_Scan.py requires two arguements:
 -A <this is for the Virus Total API Key which you get when you sign up>
 -H <this is for the file Hash which must be in either MD5 or SHA256 Formats>
 
