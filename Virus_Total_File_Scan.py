@@ -26,7 +26,7 @@ def verify_hash(file_hash):
     return file_hash
   # Bad Hash
   else:
-    print("You have entered an invalid hash.  Please enter an MD5 or SHA256 hash and try again.")
+    print("[-] You have entered an invalid hash.  Please enter an MD5 or SHA256 hash and try again.")
 
 def fetch_results(api_key, file_hash):
   params = {'apikey': api_key, 'resource': file_hash}
@@ -52,7 +52,7 @@ def fetch_results(api_key, file_hash):
       elif 1 <= vt_detected_positives <= 5:
         print(f'[+] This may be a Malicious File.  {vt_detected_positives} AV Engines have flagged this file as Malicious.')
       else:
-        print('This File is clean.')
+        print('[+] This File is clean.')
 
   # If status code is not 200, end and inform user of failure     
   else:
