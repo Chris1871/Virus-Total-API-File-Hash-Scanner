@@ -17,7 +17,6 @@ def run():
     fetch_results(args.api_key,args.file_hash)
 
 def verify_hash(file_hash):
-
   # Check for SHA256 Hash
   if re.findall("^[0-9a-f]{64}$",file_hash,re.IGNORECASE):
     return file_hash
@@ -29,6 +28,7 @@ def verify_hash(file_hash):
     print("[-] You have entered an invalid hash.  Please enter an MD5 or SHA256 hash and try again.")
 
 def fetch_results(api_key, file_hash):
+  # API syntax from virus total
   params = {'apikey': api_key, 'resource': file_hash}
   url = 'https://www.virustotal.com/vtapi/v2/file/report'
   response = requests.get(url, params=params)
